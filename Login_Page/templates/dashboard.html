@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        h2 {
+            color: #2c3e50;
+        }
+        table {
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #999;
+        }
+        .access-info {
+            background-color: #f2f2f2;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        .logout-btn {
+            float: right;
+            background-color: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <h2>Welcome to Dashboard 
+        <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+    </h2>
+
+    <div class="access-info">
+        <p><strong>Your Role:</strong> {{ role }}</p>
+        {% if access == "full" %}
+            <p><strong>Access:</strong> You have full access to manage all user records.</p>
+        {% else %}
+            <p><strong>Access:</strong> You have view-only access. You can only see your own data.</p>
+        {% endif %}
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Full Name</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data %}
+            <tr>
+                <td>{{ user.username }}</td>
+                <td>{{ user.full_name }}</td>
+                <td>{{ user.is_active }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
